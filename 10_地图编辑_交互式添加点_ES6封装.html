@@ -8,12 +8,13 @@
     <!-- 1.引入openlayer -->
     <script src = './dist/include-openlayers-local.js'></script>
     <script src = './gaode.js'></script>
-    <script src = './draw.js'></script>
-    <script src="./Point.js"></script>
+    <script src = 'draw.js'></script>
+    <script src = './Point.js'></script>
 </head>
 <body>
     <!-- 2.创建div容器 -->
     <div id = 'mapCon'></div>
+    
     <!-- 3.创建高德地图-->
     <!-- 
         参数一：显示瓦片的名称，可以为空
@@ -21,9 +22,7 @@
         参数三：对象类型，IGServer的配置信息
      -->
     <script>
-        var typeSelect = document.getElementById('type');
-        //绘制对象
-        var draw;
+        
     // 4. 创建地图对象
     const docLayer = new Zondy.Map.Doc('','map_point1',{
             // ip地址
@@ -43,21 +42,17 @@
     });
 
     // 获取点击位置坐标
-    map.on('click', function (e) {
+    map.on('click', function (evt) {
                 //鼠标单击点坐标
-                var coordinate = e.coordinate;
-                //第二种传值方式
-                const position = coordinate;
-                const layer = docLayer;
-                const attr = [{name:"name",value:"武汉",type:"string"}];
-                const service = {name:'map_point1',layerId:0};
+                const point1 = evt.coordinate;
+                // 调用封装的方法
                 Point.add({
-                    position, //属性名和属性值一样的话,可以只写一个 就相当于 position:position
-                    attr,
-                    service,
-                    layer,
+                    position:point1,
+                    attr:[{name:"name",value:"武汉",type:"string"}],
+                    service:{name:'map_point1',layerId:0},
+                    layer:docLayer,
                 })
-            }); 
+            });
     </script>
 </body>
 </html>
